@@ -1,0 +1,20 @@
+[run]
+
+[report]
+omit = venv/*
+        manage.py
+        Esacco/__init__.py
+        Esacco/settings.py
+        esacco/__init__.py
+        esacco/admin.py
+        esacco/migrations/*
+        Esacco/urls.py
+        esacco/tests.py
+        esacco/urls.py
+        users/__init__.py
+        users/admin.py
+        users/migrations/*
+        users/tests.py
+        users/urls.py
+[html]
+directory = coverage_html

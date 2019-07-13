@@ -1,0 +1,108 @@
+{% load staticfiles %}
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Esacco</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="apple-touch-icon" href="icon.png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <link rel="stylesheet" href="{% static 'css/mdi/css/materialdesignicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/feather/feather.css' %}">
+    <link rel="stylesheet" href="{% static 'js/vendor/jquery-bar-rating/fontawesome-stars-o.css' %}">
+    <link rel="stylesheet" href="{% static 'js/vendor/jquery-bar-rating/fontawesome-stars.css' %}">
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap/bootstrap.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/fontawesome/web/css/fontawesomeall.css' %}">
+</head>
+
+<body>
+  <!--[if lte IE 9]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+  <![endif]-->
+      <header>
+       <nav class="navbar navbar-expand-sm navbar-light bg-light">
+       <a class="navbar-brand" href="#">Esacco</a>
+       <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+           aria-expanded="false" aria-label="Toggle navigation">
+           <span class="navbar-toggler-icon"></span>
+       </button>
+       <div class="collapse navbar-collapse" id="collapsibleNavId">
+           <ul class="navbar-nav ml-auto">
+               {% if user.is_authenticated %}
+                   <li class="nav-item">
+                       <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+                   </li>
+                   <li class="nav-item">
+                       <a class="nav-link" href="#" data-container="body"
+                          data-toggle="popover" data-placement="bottom"
+                          data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+                           Notifications
+                       <span class="badge badge-primary badge-pill">1</span>
+                       </a>
+                   </li>
+                   <li class="nav-item">
+                       <a class="nav-link" href="{% url 'reports' %}">Reports</a>
+                   </li>
+                   <li class="nav-item dropdown">
+                       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                          role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Settings
+                       </a>
+                       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                           <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
+                           <a class="dropdown-item" href="{% url 'request' %}">Request</a>
+                           <div class="dropdown-divider"></div>
+                           <a class="dropdown-item"
+                              href="javascript:{ document.getElementById('logout').submit()}"
+                              onclick="">
+                               logout
+                           </a>
+                           <form id="logout" action="{% url 'logout' %}" method="post">
+                               {% csrf_token %}
+                               <input type="hidden">
+                           </form>
+                       </div>
+                   </li>
+                   {% else %}
+                   <li class="nav-item">
+                       <a class="nav-link" href="{% url 'signup' %}">Signup</a>
+                   </li>
+                   <li class="nav-item">
+                       <a class="nav-link" href="{% url 'login' %}">Login</a>
+                   </li>
+               {% endif %}
+           </ul>
+       </div>
+       </nav>
+      </header>
+  {% block content %}
+
+  {% endblock %}
+  <script src="{% static 'js/vendor/modernizr-3.6.0.min.js' %}"></script>
+  <script src="{% static 'js/vendor/jquery-3.3.1.min.js' %}"></script>
+  <script src="{% static 'js/vendor/popper.min.js' %}"></script>
+  <script src="{% static 'js/vendor/bootstrap/bootstrap.js' %}"></script>
+  <script src="{% static 'js/vendor/chart.js/Chart.min.js' %}"></script>
+  <script src="{% static 'js/chart.js' %}"></script>
+  <script src="{% static 'js/off-canvas.js' %}"></script>
+  <script src="{% static 'js/dashboard.js' %}"></script>
+  <script src="{% static 'js/hoverable-collapse.js' %}"></script>
+  <script src="{% static 'js/template.js' %}"></script>
+  <script src="{% static 'js/vendor/jquery-bar-rating/jquery.barrating.min.js' %}"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+<script>
+$(document).ready(function(){
+  $('[data-toggle="popover"]').popover();
+});
+</script>
+</body>
+
+</html>

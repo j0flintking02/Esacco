@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container-fluid">
+    <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="row">
+            <div class="col-sm-12 mb-4 mb-xl-0">
+              <h4 class="font-weight-bold text-dark">Hi, welcome back {{ request.user }}</h4>
+              <p class="font-weight-normal mb-2 text-muted">{{ date }}</p>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-xl-3 flex-column d-flex grid-margin stretch-card">
+              <div class="row flex-grow">
+                <div class="col-sm-12 grid-margin stretch-card">
+                    <div class="card">
+                      <div class="card-body">
+                          <h4 class="card-title">Shares</h4>
+                          <p>23% increase in conversion</p>
+                          <h4 class="text-dark font-weight-bold mb-2">{{ total_shares }}</h4>
+                          <canvas id="customers"></canvas>
+                      </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 stretch-card">
+                    <div class="card">
+                      <div class="card-body">
+                          <h4 class="card-title">Orders</h4>
+                          <p>6% decrease in earnings</p>
+                          <h4 class="text-dark font-weight-bold mb-2">55,543</h4>
+                          <canvas id="orders"></canvas>
+                      </div>
+                    </div>
+               </div>
+              </div>
+            </div>
+            <div class="col-xl-9 d-flex grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                      <h4 class="card-title">{{ request.user }}'s personal Metrics</h4>
+                      <div class="row">
+                        <div class="col-lg-5">
+                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit amet cumque cupiditate</p>
+                            {{ payments|json_script:"payments" }}
+                            {{ data|json_script:"sm" }}
+                            <script type="text/javascript">
+                                let value = JSON.parse((document.getElementById('sm').textContent));
+                                let pay_value = JSON.parse((document.getElementById('payments').textContent));
+                            </script>
+                        </div>
+                        <div class="col-lg-7">
+                          <div class="chart-legends d-lg-block d-none" id="chart-legends"></div>
+                        </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-sm-12">
+                              <canvas id="web-audience-metrics-satacked" class="mt-3"></canvas>
+                          </div>
+                      </div>
+
+                    </div>
+                  </div>
+            </div>
+          </div>
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial -->
+      </div>
+    </div>
+    <div class="container-fluid">
+    <!-- partial:partials/_footer.html -->
+        <footer class="footer">
+            <p class="text-muted text-center">Copyright © 2019  All rights reserved.</p>
+        </footer>
+    </div>
+{% endblock %}
