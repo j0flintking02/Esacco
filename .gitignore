@@ -1,8 +1,10 @@
 .idea
 .vscode/
+.env
 
 __pycache__/
 venv/
 .coverage
 users/migrations/
 esacco/migrations/
+mainApp/migrations/*

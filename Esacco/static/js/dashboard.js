@@ -2,6 +2,7 @@
 (function($) {
   const totalShare={};
   const totalPayments={};
+  const totalRequest={};
   let total= 0;
   Object.keys(value).map((key)=>{
     const sm = value[key];
@@ -11,6 +12,7 @@
     });
     total=0;
   });
+
   Object.keys(pay_value).map((key)=>{
     const pay = pay_value[key];
     pay.forEach((i)=>{
@@ -19,9 +21,17 @@
     });
     total=0;
   });
-  let origin_values=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  Object.keys(request_value).map((key)=>{
+    const pay = request_value[key];
+    pay.forEach((i)=>{
+      total+=i;
+      totalRequest[key]=total;
+    });
+    total=0;
+  });
 
-  const updateValues=((obj, values)=>{
+  const updateValues=((obj)=>{
+    let values=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     for (let counter = 0; counter < Object.keys(obj).length; counter++) {
       Object.keys(obj).map((key)=>{
       switch (key) {
@@ -67,16 +77,24 @@
     }
     return values
   });
-console.log(updateValues(totalShare, origin_values), '==========')
-console.log(updateValues(totalPayments, origin_values), '***************')
   $(function() {
-    var dataBar = {
-      labels: Object.keys(totalShare),
+    const dataBar = {
+      labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Nov","Dec"],
       datasets: [{
         label: 'Customers',
-        data: Object.values(totalShare),
+        data: updateValues(totalShare),
         backgroundColor: [
-          '#dee5ef',
+          '#fc381d',
+          '#fc381d',
+          '#fc381d',
+          '#fc381d',
+          '#fc381d',
+          '#fc381d',
+          '#fc381d',
+          '#fc381d',
+          '#fc381d',
+          '#fc381d',
+          '#fc381d',
           '#fc381d',
         ],
         borderColor: [
@@ -135,30 +153,38 @@ console.log(updateValues(totalPayments, origin_values), '***************')
         options: optionsBar
       });
     }
-    var dataBarOrder = {
-      labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
+    const dataBarOrder = {
+      labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Nov","Dec"],
       datasets: [{
-        label: 'Customers',
-        data: [5, 5, 5, 5, 10, 5, 5, 5],
+        label: 'Payments',
+        data: updateValues(totalPayments),
         backgroundColor: [
-          '#dee5ef',
-          '#dee5ef',
-          '#dee5ef',
-          '#dee5ef',
           '#51c81c',
-          '#dee5ef',
-          '#dee5ef',
-          '#dee5ef',
+          '#51c81c',
+          '#51c81c',
+          '#51c81c',
+          '#51c81c',
+          '#51c81c',
+          '#51c81c',
+          '#51c81c',
+          '#51c81c',
+          '#51c81c',
+          '#51c81c',
+          '#51c81c',
         ],
         borderColor: [
-          '#dee5ef',
-          '#dee5ef',
-          '#dee5ef',
-          '#dee5ef',
           '#51c81c',
-          '#dee5ef',
-          '#dee5ef',
-          '#dee5ef',
+          '#51c81c',
+          '#51c81c',
+          '#51c81c',
+          '#51c81c',
+          '#51c81c',
+          '#51c81c',
+          '#51c81c',
+          '#51c81c',
+          '#51c81c',
+          '#51c81c',
+          '#51c81c',
         ],
         borderWidth: 1,
         fill: false
@@ -217,7 +243,7 @@ console.log(updateValues(totalPayments, origin_values), '***************')
       datasets: [
         {
           label: 'Shares',
-          data: updateValues(totalShare, origin_values),
+          data: updateValues(totalShare),
           backgroundColor: [
             '#3794fc','#3794fc','#3794fc','#3794fc','#3794fc','#3794fc','#3794fc','#3794fc',
           ],
@@ -229,7 +255,7 @@ console.log(updateValues(totalPayments, origin_values), '***************')
         },
         {
         label: 'Payments',
-        data: updateValues(totalPayments, origin_values),
+        data: updateValues(totalPayments),
         backgroundColor: [
           '#a037fc',
           '#a037fc',
@@ -254,8 +280,8 @@ console.log(updateValues(totalPayments, origin_values), '***************')
         fill: false
       },
       {
-        label: 'Loans Received',
-        data: [24000,16869,47000,19000,25000,12000,32000,25000,22000],
+        label: 'Loans',
+        data: updateValues(totalRequest),
         backgroundColor: [
           '#dee5ef','#dee5ef','#dee5ef','#dee5ef','#dee5ef','#dee5ef','#dee5ef','#dee5ef',
         ],
@@ -296,9 +322,9 @@ console.log(updateValues(totalPayments, origin_values), '***************')
         for (var i = 0; i < chart.data.datasets.length; i++) {
           const chartData = chart.data.datasets[i].data;
 
-          chartData.forEach((i)=>{
+          for (const i of chartData) {
           total+=i;
-          });
+          }
           text.push('<div class="col-lg-4">' +
               '<div class="row">' +
                 '<div class="col-sm-12">' +
@@ -314,6 +340,7 @@ console.log(updateValues(totalPayments, origin_values), '***************')
                 '</div>' +
               '</div>');
           text.push('</div>');
+          total = 0;
         }
         text.push('</div>');
         return text.join("");
@@ -337,87 +364,5 @@ console.log(updateValues(totalPayments, origin_values), '***************')
       });
       document.getElementById('chart-legends').innerHTML = barChart.generateLegend();
 		}
-		var marketTrendsSatackedData = {
-      labels: ["S", "M", "T", "W", "T", "F", "S"],
-      datasets: [
-        {
-          label: 'Total Income',
-          data: [86000,83320,36000,80000,92000,58000,76000],
-          backgroundColor: [
-            '#51c81c','#51c81c','#51c81c','#51c81c','#51c81c','#51c81c','#51c81c','#51c81c',
-          ],
-          borderColor: [
-            '#51c81c','#51c81c','#51c81c','#51c81c','#51c81c','#51c81c','#51c81c','#51c81c',
-          ],
-          borderWidth: 1,
-          fill: false
-        },
-      	{
-        label: 'Total Expenses',
-        data: [59000,32370,84000,65000,53000,87000,60900],
-        backgroundColor: [
-          '#dee5ef','#dee5ef','#dee5ef','#dee5ef','#dee5ef','#dee5ef','#dee5ef','#dee5ef',
-        ],
-        borderColor: [
-          '#dee5ef','#dee5ef','#dee5ef','#dee5ef','#dee5ef','#dee5ef','#dee5ef','#dee5ef',
-        ],
-        borderWidth: 1,
-        fill: false
-      },]
-    };
-    var marketTrendsSatackedOptions = {
-      scales: {
-        xAxes: [{
-          barPercentage: 0.35,
-          stacked: true,
-          gridLines: {
-            display: false, //this will remove only the label
-						drawBorder: false,
-						color: "#e5e9f2",
-          },
-        }],
-        yAxes: [{
-          stacked: true,
-					display: false,
-					gridLines: {
-            display: false, //this will remove only the label
-            drawBorder: false
-          },
-        }]
-      },
-      legend: {
-        display: false,
-        position: "bottom"
-      },
-      legendCallback: function(chart) {
-				var text = [];
-        text.push('<div class="row">');
-        for (var i = 0; i < chart.data.datasets.length; i++) {
-          text.push('<div class="col-6 "><div class="row"><div class="col-sm-12 ml-sm-0 mr-sm-0 pr-md-0"><h5 class="font-weight-bold text-dark">$ ' + chart.data.datasets[i].data[1].toLocaleString() + '</h5></div></div><div class="row align-items-center"><div class="col-12"><p class="text-muted m-0">' + chart.data.datasets[i].label + '</p></div></div>');
-          text.push('</div>');
-        }
-        text.push('</div>');
-        return text.join("");
-      },
-      elements: {
-        point: {
-          radius: 0
-        }
-      }
-    };
-    if ($("#marketTrendssatacked").length) {
-      var barChartCanvas = $("#marketTrendssatacked").get(0).getContext("2d");
-      // This will get the first returned node in the jQuery collection.
-      var barChart = new Chart(barChartCanvas, {
-        type: 'bar',
-        data: marketTrendsSatackedData,
-        options: marketTrendsSatackedOptions
-      });
-      document.getElementById('chart-legends-market-trend').innerHTML = barChart.generateLegend();
-    }
-    $('#over-all-rating').barrating({
-      theme: 'fontawesome-stars',
-      showSelectedRating: false
-    });
   });
 })(jQuery);

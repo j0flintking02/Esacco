@@ -33,6 +33,7 @@ class Loan(models.Model):
     )
     reason = models.CharField(max_length=255, null=False)
     amount_Requested = models.DecimalField(max_digits=10, decimal_places=2)
+    request_date = models.DateField(auto_now=True, null=False)
     dueDate = models.DateField(auto_now=False, null=True)
 
     def __str__(self):
@@ -50,7 +51,7 @@ class Payment(models.Model):
 
     def get_balance(self):
         """Returns the person's balance."""
-        return self.loan.amount_Requested-self.amount
+        return self.loan.amount_Requested - self.amount
 
     balance = property(get_balance)
 
@@ -78,7 +79,7 @@ class Dividend(models.Model):
 
     def get_accumulated_total(self):
         """Returns the Users accumulated total"""
-        accumulated_total = self.value*Share.get_share_total(self.user_id)
+        accumulated_total = self.value * Share.get_share_total(self.user_id)
         return round(accumulated_total, 2)
 
     dividend = property(get_accumulated_total)

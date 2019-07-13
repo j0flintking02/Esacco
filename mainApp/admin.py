@@ -14,7 +14,7 @@ class ShareAdminView(admin.ModelAdmin):
 
 
 class LoanAdminView(admin.ModelAdmin):
-    list_display = ('id', 'user', 'amount_Requested', 'dueDate')
+    list_display = ('id', 'user', 'amount_Requested', 'dueDate', 'request_date')
 
 
 class DividendAdminView(admin.ModelAdmin):

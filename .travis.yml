@@ -1,13 +1,13 @@
 language: python
 
 python:
-  - "3.6"
+  - "3.5.2"
 
 services:
   - postgresql
 
 env:
-  - DATABASE_URL = 'postgres://postgres@localhost/test_db'
+  - DATABASE_URL = 'postgresql://postgres@localhost/test_db'
 
 install:
   - pip install -r requirements.txt
@@ -15,16 +15,16 @@ install:
   - pip install coveralls
 
 addons:
-  postgresql: 9.6
+  postgresql: "9.6"
 
 before_script:
-  - psql -c 'CREATE DATABASE test_db;' -U postgres
+  - psql -c "CREATE DATABASE test_db;" -U postgres
 
 script:
-  - python manage.py makemigrations esacco
+  - python manage.py makemigrations mainApp
   - python manage.py makemigrations users
   - python manage.py migrate
-  - coverage run manage.py test
+  - coverage run --source=users/ manage.py test
   - coverage report -m
 
 after_success:

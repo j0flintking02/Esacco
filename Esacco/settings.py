@@ -12,10 +12,13 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 import psycopg2.extensions
+from db_config import get_database_url
+from urllib.parse import urlparse
+
+db_url = get_database_url()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -28,7 +31,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,8 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'import_export',
     'users',
-    'esacco',
+    'mainApp',
 ]
 
 AUTH_USER_MODEL = 'users.User'
@@ -75,26 +78,32 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Esacco.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 client_encoding = 'UTF8'
 
+parsed_url = urlparse(db_url)
+
+dbname = parsed_url.path[1:]
+username = parsed_url.username
+hostname = parsed_url.hostname
+pwd = parsed_url.password
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'esacco',
-        'USER': 'flintking',
-        'PASSWORD': 'root',
-        'HOST': 'localhost',
+        'NAME': dbname,
+        'USER': username,
+        'PASSWORD': pwd,
+        'HOST': hostname,
         'PORT': '',
     },
     'OPTIONS': {
         'isolation_level': psycopg2.extensions.ISOLATION_LEVEL_SERIALIZABLE,
     },
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -114,7 +123,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
@@ -127,7 +135,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/

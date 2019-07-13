@@ -3057,7 +3057,7 @@ function parseOffset(offset, popperOffsets, referenceOffsets, basePlacement) {
     });
   });
 
-  // Loop trough the offsets arrays and execute the esacco
+  // Loop trough the offsets arrays and execute the mainApp
   ops.forEach(function (op, index) {
     op.forEach(function (frag, index2) {
       if (isNumeric(frag)) {

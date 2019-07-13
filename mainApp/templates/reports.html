@@ -1,0 +1,149 @@
+{% extends 'base_admin.html' %}
+
+{% block content %}
+  <div class="container-scroller">
+    <div class="container-fluid page-body-wrapper">
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="row">
+            <div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">General statement</h4>
+                  <p class="card-description">
+                    This show the general overview of how the SACCO is performing in the loan sector
+                  </p>
+                  <div class="table-responsive pt-3">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>
+                                #
+                            </th>
+                            <th>
+                                Loans
+                            </th>
+                            <th>
+                                Last name
+                            </th>
+                            <th>
+                                Progress
+                            </th>
+                            <th>
+                                Amount
+                            </th>
+                            <th>
+                                Deadline
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for loan in loans %}
+                        <tr>
+                            <td>
+                                {{ loan.user_id }}
+                            </td>
+                            <td>
+                                {{ loan.first_name }}
+                            </td>
+                            <td>
+                                {{ loan.last_name }}
+                            </td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: {{ loan.percentage }}%" aria-valuenow="2" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </td>
+                            <td>
+                                {{ loan.amount_requested }}
+                            </td>
+                            <td>
+                                {{ loan.dueDate }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">General Loan statement</h4>
+                  <p class="card-description">
+                    This show the general overview of how the SACCO is performing in the loan sector
+                  </p>
+                  <div class="table-responsive pt-3">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>
+                                #
+                            </th>
+                            <th>
+                                First name
+                            </th>
+                            <th>
+                                Last name
+                            </th>
+                            <th>
+                                Progress
+                            </th>
+                            <th>
+                                Amount
+                            </th>
+                            <th>
+                                Deadline
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for loan in loans %}
+                        <tr>
+                            <td>
+                                {{ loan.user_id }}
+                            </td>
+                            <td>
+                                {{ loan.first_name }}
+                            </td>
+                            <td>
+                                {{ loan.last_name }}
+                            </td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: {{ loan.percentage }}%" aria-valuenow="2" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </td>
+                            <td>
+                                {{ loan.amount_requested }}
+                            </td>
+                            <td>
+                                {{ loan.dueDate }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- content-wrapper ends -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+
+</body>
+
+</html>
+
+
+
+{% endblock %}

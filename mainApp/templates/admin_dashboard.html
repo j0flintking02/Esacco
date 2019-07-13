@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base_admin.html' %}
 
 {% block content %}
     <div class="container-fluid">
@@ -26,9 +26,12 @@
                 <div class="col-sm-12 stretch-card">
                     <div class="card">
                       <div class="card-body">
-                          <h4 class="card-title">Orders</h4>
+                          <h4 class="card-title">Payments</h4>
                           <p>6% decrease in earnings</p>
-                          <h4 class="text-dark font-weight-bold mb-2">55,543</h4>
+                          <h4 class="text-dark font-weight-bold mb-2">{% if payments %}
+                          {% else %}
+                              <p class="text-muted">No Payments</p>
+                          {% endif %}</h4>
                           <canvas id="orders"></canvas>
                       </div>
                     </div>
@@ -38,15 +41,17 @@
             <div class="col-xl-9 d-flex grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                      <h4 class="card-title">{{ request.user }}'s personal Metrics</h4>
+                      <h4 class="card-title">General Metrics</h4>
                       <div class="row">
                         <div class="col-lg-5">
-                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit amet cumque cupiditate</p>
+                          <p>The dashboard changes information in real time according to your weekly activity</p>
                             {{ payments|json_script:"payments" }}
+                            {{ requests|json_script:"requests" }}
                             {{ data|json_script:"sm" }}
                             <script type="text/javascript">
                                 let value = JSON.parse((document.getElementById('sm').textContent));
                                 let pay_value = JSON.parse((document.getElementById('payments').textContent));
+                                let request_value = JSON.parse((document.getElementById('requests').textContent));
                             </script>
                         </div>
                         <div class="col-lg-7">
